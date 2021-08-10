@@ -15,7 +15,7 @@
 #define pi 3.14159265359
 //oh my third commit
 //vscode communication
-//my practice
+//my practice_ty
 
 float current_joint_position[3];
 float current_joint_velocity[3];
