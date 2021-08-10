@@ -1,0 +1,142 @@
+<?xml version="1.0" ?>
+<sdf version='1.4'>
+<world name="world">
+
+   <include>
+      <uri>model://sun</uri>
+   </include>
+
+   <include>
+      <uri>model://ground_plane</uri>
+   </include>
+
+   <model name='manipulator'>
+      <!-- <static>false</static> -->
+      <pose>0 0 0 0 0 0</pose>
+
+    <link name='base'>
+      <pose>0 0 0 0 0 0</pose>
+      
+      <visual name='base_visual'>
+        <geometry>
+          <mesh>
+            <scale>0.1 0.1 0.1</scale>
+            <uri>/home/taeyu/catkin_ws/src/manipulator/world/0.1/base_0.1.dae</uri>
+          </mesh>
+        </geometry>
+        <pose>0 0 0 1.570796 0 0</pose>
+        <material>
+          <script>
+            <name>Gazebo/Grey</name>
+            <uri>__default__</uri>
+          </script>
+        </material>
+      </visual>
+
+      <collision name='base_collision'>
+        <geometry>
+          <mesh>
+            <scale>0.1 0.1 0.1</scale>
+            <uri>/home/taeyu/catkin_ws/src/manipulator/world/0.1/base_0.1.dae</uri>
+          </mesh>
+        </geometry>
+        <pose>0 0 0 1.570796 0 0</pose>
+      </collision>
+
+      <inertial>
+        <pose>0 0 0.072042 0 0 0</pose> <!--- Position of COM wrt base frame  -->
+        <mass>33.993</mass>
+        <inertia> <!-- inertia wrt COM  -->
+          <ixx>0.680968</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.188459</iyy>
+          <iyz>0</iyz>
+          <izz>0.680968</izz>
+        </inertia>
+      </inertial>
+    </link>
+
+    <joint name='fixed' type='revolute'>
+      <child>base</child>
+      <parent>world</parent>
+         <axis>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+        </dynamics>
+        <xyz>-1 0 0</xyz>
+      </axis>
+    </joint>
+
+
+
+    <link name='L1'>
+      <pose>0 0 0.2 0 0 0</pose>
+      
+      <visual name='L1_visual'>   
+        <geometry>
+          <mesh>
+            <scale>0.1 0.1 0.1</scale>
+            <uri>/home/taeyu/catkin_ws/src/manipulator/world/0.1/L1_0.1.dae</uri>
+          </mesh>
+        </geometry>
+        <pose>0 0 0 0 0 0</pose>
+        <material>
+          <script>
+            <name>Gazebo/Orange</name>
+            <uri>__default__</uri>
+          </script>
+        </material>
+      </visual>
+
+      <collision name='L1_collision'>
+        <geometry>
+          <mesh>
+            <scale>0.1 0.1 0.1</scale>
+            <uri>/home/taeyu/catkin_ws/src/manipulator/world/0.1/L1_0.1.dae</uri>
+          </mesh>
+        </geometry>
+        <pose>0 0 0 0 0 0</pose>
+      </collision>
+
+      <inertial>
+        <pose>0 0 0.261781 0 0 0</pose> <!--- Position of COM wrt base frame  -->
+        <mass>23</mass>
+        <inertia> <!-- inertia wrt COM  -->
+          <ixx>2.031348</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.313299</iyy>
+          <iyz>0</iyz> 
+          <izz>1.227723</izz>
+        </inertia>
+      </inertial>
+    </link>
+
+    <joint name='J1' type='revolute'>
+      <child>L1</child>
+      <parent>base</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        
+        <dynamics>
+          <damping>0</damping>
+          <friction>10</friction>
+        </dynamics>
+      </axis>
+	<sensor name="J1_sensor" type="force_torque">
+          <update_rate>1000</update_rate>
+        </sensor>
+    </joint>
+
+
+
+<plugin name="ROSmanipulatorPlugin" filename="libsub_manipulator.so"/>
+
+   </model>
+</world>
+</sdf>
